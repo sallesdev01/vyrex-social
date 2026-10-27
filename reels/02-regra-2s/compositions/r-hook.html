@@ -1,0 +1,79 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Unbounded";
+      src: url("assets/fonts/unbounded-700.woff2") format("woff2");
+      font-weight: 700;
+    }
+    @font-face {
+      font-family: "Unbounded";
+      src: url("assets/fonts/unbounded-800.woff2") format("woff2");
+      font-weight: 800;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+    #r-hook-brand {
+      position: absolute;
+      left: 96px;
+      top: 236px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: "Unbounded";
+      font-weight: 800;
+      font-size: 40px;
+      letter-spacing: -0.03em;
+      color: #f5f5f0;
+    }
+    #r-hook-block {
+      position: absolute;
+      left: 96px;
+      right: 96px;
+      top: 560px;
+    }
+    #r-hook-title {
+      font-family: "Unbounded";
+      font-weight: 700;
+      font-size: 92px;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: #f5f5f0;
+    }
+    #r-hook-big {
+      margin-top: 24px;
+      font-family: "JetBrains Mono";
+      font-weight: 700;
+      font-size: 380px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #c6ff1a;
+    }
+  </style>
+  <div id="root" data-composition-id="r-hook" data-width="1080" data-height="1920">
+    <div id="r-hook-brand">
+      <svg viewBox="0 0 120 100" width="52" height="43" aria-hidden="true">
+        <polygon points="0,0 32,0 49.65,41.7 40.25,95" fill="#F5F5F0" />
+        <polygon points="120,0 88,0 55.65,41.7 46.25,95" fill="#C6FF1A" />
+      </svg>
+      VYREX
+    </div>
+    <div id="r-hook-block">
+      <h1 id="r-hook-title">Seu site abre em menos de</h1>
+      <p id="r-hook-big">2s?</p>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // A pergunta já está na tela no frame 0. A saída é um chicote para cima.
+    tl.to(
+      "#r-hook-block",
+      { y: -160, opacity: 0, filter: "blur(14px)", duration: 0.3, ease: "power3.in" },
+      2.75,
+    );
+    window.__timelines["r-hook"] = tl;
+  </script>
+</template>

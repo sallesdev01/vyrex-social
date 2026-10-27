@@ -1,0 +1,104 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Unbounded";
+      src: url("assets/fonts/unbounded-700.woff2") format("woff2");
+      font-weight: 700;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+    #p-rules-head {
+      position: absolute;
+      left: 96px;
+      right: 96px;
+      top: 540px;
+      display: flex;
+      justify-content: space-between;
+      font-family: "JetBrains Mono";
+      font-weight: 700;
+      font-size: 32px;
+      letter-spacing: 0.14em;
+      color: #c6ff1a;
+    }
+    #p-rules-counter {
+      position: relative;
+      width: 130px;
+      height: 40px;
+    }
+    .p-rules-n {
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: #9b9b95;
+    }
+    #p-rules-stage {
+      position: absolute;
+      left: 96px;
+      right: 96px;
+      top: 640px;
+      height: 360px;
+    }
+    .p-rules-item {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 888px;
+      font-family: "Unbounded";
+      font-weight: 700;
+      font-size: 96px;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: #f5f5f0;
+    }
+    .p-rules-item b {
+      font-weight: 700;
+      color: #c6ff1a;
+    }
+  </style>
+  <div id="root" data-composition-id="p-rules" data-width="1080" data-height="1920">
+    <div id="p-rules-head">
+      <span>NOSSAS REGRAS</span>
+      <span id="p-rules-counter">
+        <span id="p-rules-n1" class="p-rules-n">01/04</span>
+        <span id="p-rules-n2" class="p-rules-n">02/04</span>
+        <span id="p-rules-n3" class="p-rules-n">03/04</span>
+        <span id="p-rules-n4" class="p-rules-n">04/04</span>
+      </span>
+    </div>
+    <div id="p-rules-stage" data-layout-allow-overlap>
+      <p id="p-rules-r1" class="p-rules-item">Performance <b>inegociável.</b></p>
+      <p id="p-rules-r2" class="p-rules-item"><b>Anti-</b>template.</p>
+      <p id="p-rules-r3" class="p-rules-item">Papo <b>reto.</b></p>
+      <p id="p-rules-r4" class="p-rules-item">Obsessão por <b>ROI.</b></p>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const rules = ["#p-rules-r1", "#p-rules-r2", "#p-rules-r3", "#p-rules-r4"];
+    const counters = ["#p-rules-n1", "#p-rules-n2", "#p-rules-n3", "#p-rules-n4"];
+    const slot = 1.25;
+
+    tl.fromTo("#p-rules-head", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, 0);
+    rules.forEach((rule, i) => {
+      const t = 0.1 + i * slot;
+      // Chicote vertical: entra de baixo desfocado, sai para cima.
+      tl.fromTo(
+        rule,
+        { y: 90, opacity: 0, filter: "blur(12px)" },
+        { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.32, ease: "expo.out" },
+        t,
+      );
+      tl.fromTo(counters[i], { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power2.out" }, t);
+      if (i < rules.length - 1) {
+        tl.to(rule, { y: -90, opacity: 0, filter: "blur(12px)", duration: 0.2, ease: "power3.in" }, t + slot - 0.2);
+        tl.to(counters[i], { opacity: 0, duration: 0.12, ease: "power2.in" }, t + slot - 0.15);
+      }
+    });
+    tl.to(["#p-rules-head", "#p-rules-stage"], { opacity: 0, filter: "blur(10px)", duration: 0.22, ease: "power3.in" }, 5.1);
+    window.__timelines["p-rules"] = tl;
+  </script>
+</template>

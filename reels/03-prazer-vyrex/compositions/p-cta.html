@@ -1,0 +1,123 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Unbounded";
+      src: url("assets/fonts/unbounded-700.woff2") format("woff2");
+      font-weight: 700;
+    }
+    @font-face {
+      font-family: "Unbounded";
+      src: url("assets/fonts/unbounded-800.woff2") format("woff2");
+      font-weight: 800;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+    #p-cta-flood {
+      position: absolute;
+      inset: 0;
+      background: #c6ff1a;
+    }
+    #p-cta-brand {
+      position: absolute;
+      left: 96px;
+      top: 236px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: "Unbounded";
+      font-weight: 800;
+      font-size: 40px;
+      letter-spacing: -0.03em;
+      color: #0a0a0a;
+    }
+    #p-cta-lead {
+      position: absolute;
+      left: 96px;
+      top: 600px;
+      font-family: "Inter";
+      font-size: 60px;
+      color: #0a0a0a;
+    }
+    #p-cta-price {
+      position: absolute;
+      left: 96px;
+      top: 690px;
+      font-family: "Unbounded";
+      font-weight: 800;
+      font-size: 156px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #0a0a0a;
+    }
+    #p-cta-hl {
+      position: absolute;
+      left: 96px;
+      top: 930px;
+      padding: 8px 22px 12px;
+      font-family: "Unbounded";
+      font-weight: 700;
+      font-size: 64px;
+      letter-spacing: -0.03em;
+      background: #0a0a0a;
+      color: #c6ff1a;
+    }
+    #p-cta-handle {
+      position: absolute;
+      left: 96px;
+      top: 1080px;
+      font-family: "JetBrains Mono";
+      font-weight: 700;
+      font-size: 32px;
+      letter-spacing: 0.08em;
+      color: #2e2e2b;
+    }
+  </style>
+  <div id="root" data-composition-id="p-cta" data-width="1080" data-height="1920">
+    <div id="p-cta-flood"></div>
+    <div id="p-cta-brand">
+      <svg viewBox="0 0 120 100" width="52" height="43" aria-hidden="true">
+        <polygon points="0,0 32,0 49.65,41.7 40.25,95" fill="#0A0A0A" />
+        <polygon points="120,0 88,0 55.65,41.7 46.25,95" fill="#0A0A0A" fill-opacity="0.55" />
+      </svg>
+      VYREX
+    </div>
+    <p id="p-cta-lead">Sites a partir de</p>
+    <p id="p-cta-price">R$ 1.499</p>
+    <p id="p-cta-hl">Link na bio.</p>
+    <p id="p-cta-handle">@vyrexdigital</p>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(
+      "#p-cta-flood",
+      { clipPath: "inset(100% 0% 0% 0%)" },
+      { clipPath: "inset(0% 0% 0% 0%)", duration: 0.4, ease: "power2.inOut" },
+      0,
+    );
+    tl.fromTo("#p-cta-brand", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, 0.35);
+    tl.fromTo(
+      "#p-cta-lead",
+      { opacity: 0, filter: "blur(8px)" },
+      { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" },
+      0.4,
+    );
+    tl.fromTo(
+      "#p-cta-price",
+      { opacity: 0, filter: "blur(10px)" },
+      { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" },
+      0.5,
+    );
+    tl.fromTo(
+      "#p-cta-hl",
+      { clipPath: "inset(0% 100% 0% 0%)" },
+      { clipPath: "inset(0% 0% 0% 0%)", duration: 0.4, ease: "expo.out" },
+      0.7,
+    );
+    tl.fromTo("#p-cta-handle", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, 0.8);
+    window.__timelines["p-cta"] = tl;
+  </script>
+</template>

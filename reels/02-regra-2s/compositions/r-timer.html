@@ -1,0 +1,122 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Unbounded";
+      src: url("assets/fonts/unbounded-700.woff2") format("woff2");
+      font-weight: 700;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+    #r-timer-labels {
+      position: absolute;
+      left: 96px;
+      top: 520px;
+      height: 40px;
+      width: 888px;
+    }
+    .r-timer-label {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-family: "JetBrains Mono";
+      font-weight: 700;
+      font-size: 32px;
+      letter-spacing: 0.14em;
+    }
+    #r-timer-label-a {
+      color: #9b9b95;
+    }
+    #r-timer-label-b {
+      color: #c6ff1a;
+    }
+    #r-timer-count {
+      position: absolute;
+      left: 96px;
+      top: 590px;
+      font-family: "JetBrains Mono";
+      font-weight: 700;
+      font-size: 260px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #f5f5f0;
+    }
+    #r-timer-track {
+      position: absolute;
+      left: 96px;
+      top: 900px;
+      width: 888px;
+      height: 16px;
+      background: #2a2a2a;
+    }
+    #r-timer-fill {
+      position: absolute;
+      inset: 0;
+      background: #f5f5f0;
+      transform-origin: left center;
+    }
+    #r-timer-line {
+      position: absolute;
+      left: 96px;
+      right: 96px;
+      top: 990px;
+      font-family: "Unbounded";
+      font-weight: 700;
+      font-size: 72px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: #f5f5f0;
+    }
+    .r-timer-w {
+      display: inline-block;
+    }
+  </style>
+  <div id="root" data-composition-id="r-timer" data-width="1080" data-height="1920">
+    <div id="r-timer-labels">
+      <span id="r-timer-label-a" class="r-timer-label">CARREGANDO...</span>
+      <span id="r-timer-label-b" class="r-timer-label">NOSSA REGRA</span>
+    </div>
+    <p id="r-timer-count">0,0s</p>
+    <div id="r-timer-track"><div id="r-timer-fill"></div></div>
+    <p id="r-timer-line">
+      <span class="r-timer-w">Se</span> <span class="r-timer-w">passar</span>
+      <span class="r-timer-w">disso,</span><br /><span class="r-timer-w">a</span>
+      <span class="r-timer-w">gente</span> <span class="r-timer-w">falhou.</span>
+    </p>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const count = document.querySelector("#r-timer-count");
+    const clock = { v: 0 };
+    const paint = () => {
+      count.textContent = clock.v.toFixed(1).replace(".", ",") + "s";
+    };
+
+    tl.fromTo("#r-timer-label-a", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power2.out" }, 0.05);
+    tl.fromTo("#r-timer-label-b", { opacity: 0, filter: "blur(8px)" }, { opacity: 0, filter: "blur(8px)", duration: 0.01 }, 0);
+    // Cronômetro e barra andam juntos, em velocidade constante, de 0 a 2 segundos.
+    tl.fromTo(clock, { v: 0 }, { v: 2, duration: 2, ease: "none", onUpdate: paint }, 0.3);
+    tl.fromTo("#r-timer-fill", { scaleX: 0 }, { scaleX: 1, duration: 2, ease: "none" }, 0.3);
+    // Aos 2 segundos tudo vira lima: é o limite da VYREX.
+    tl.to(["#r-timer-count"], { color: "#C6FF1A", duration: 0.15, ease: "power2.out" }, 2.3);
+    tl.to("#r-timer-fill", { backgroundColor: "#C6FF1A", duration: 0.15, ease: "power2.out" }, 2.3);
+    tl.to("#r-timer-label-a", { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power3.in" }, 2.3);
+    tl.to("#r-timer-label-b", { opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power4.out" }, 2.42);
+    tl.fromTo(
+      ".r-timer-w",
+      { opacity: 0, filter: "blur(6px)" },
+      { opacity: 1, filter: "blur(0px)", duration: 0.14, ease: "power4.out", stagger: 0.07 },
+      2.6,
+    );
+    tl.to(
+      ["#r-timer-labels", "#r-timer-count", "#r-timer-track", "#r-timer-line"],
+      { opacity: 0, filter: "blur(10px)", duration: 0.22, ease: "power3.in" },
+      4.5,
+    );
+    paint();
+    window.__timelines["r-timer"] = tl;
+  </script>
+</template>

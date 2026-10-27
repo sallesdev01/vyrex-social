@@ -1,0 +1,124 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Unbounded";
+      src: url("assets/fonts/unbounded-700.woff2") format("woff2");
+      font-weight: 700;
+    }
+    @font-face {
+      font-family: "Unbounded";
+      src: url("assets/fonts/unbounded-800.woff2") format("woff2");
+      font-weight: 800;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+    #m-logo-lockup {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 640px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 44px;
+    }
+    #m-logo-symbol {
+      position: relative;
+      width: 168px;
+      height: 140px;
+    }
+    .m-logo-blade {
+      position: absolute;
+      inset: 0;
+    }
+    #m-logo-word {
+      display: flex;
+      font-family: "Unbounded";
+      font-weight: 800;
+      font-size: 150px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: #f5f5f0;
+    }
+    #m-logo-tagline {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 880px;
+      text-align: center;
+      font-family: "Inter";
+      font-size: 44px;
+      color: #9b9b95;
+    }
+    #m-logo-handle {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 1000px;
+      text-align: center;
+      font-family: "JetBrains Mono";
+      font-weight: 700;
+      font-size: 34px;
+      letter-spacing: 0.08em;
+      color: #c6ff1a;
+    }
+  </style>
+  <div id="root" data-composition-id="m-logo" data-width="1080" data-height="1920">
+    <div id="m-logo-lockup">
+      <div id="m-logo-symbol">
+        <svg id="m-logo-left" class="m-logo-blade" viewBox="0 0 120 100" aria-hidden="true">
+          <polygon points="0,0 32,0 49.65,41.7 40.25,95" fill="#F5F5F0" />
+        </svg>
+        <svg id="m-logo-right" class="m-logo-blade" viewBox="0 0 120 100" aria-hidden="true">
+          <polygon points="120,0 88,0 55.65,41.7 46.25,95" fill="#C6FF1A" />
+        </svg>
+      </div>
+      <div id="m-logo-word">
+        <span class="m-logo-l">V</span><span class="m-logo-l">Y</span><span class="m-logo-l">R</span
+        ><span class="m-logo-l">E</span><span class="m-logo-l">X</span>
+      </div>
+    </div>
+    <p id="m-logo-tagline">Sites que vendem de verdade.</p>
+    <p id="m-logo-handle">@vyrexdigital</p>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // As duas lâminas chegam de lados opostos e se encontram no vértice.
+    tl.fromTo(
+      "#m-logo-left",
+      { x: -150, y: -110, opacity: 0, filter: "blur(10px)" },
+      { x: 0, y: 0, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" },
+      0.1,
+    );
+    tl.fromTo(
+      "#m-logo-right",
+      { x: 150, y: -110, opacity: 0, filter: "blur(10px)" },
+      { x: 0, y: 0, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" },
+      0.2,
+    );
+    // Nome letra por letra.
+    tl.fromTo(
+      ".m-logo-l",
+      { opacity: 0.15, filter: "blur(6px)" },
+      { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out", stagger: 0.08 },
+      0.5,
+    );
+    tl.fromTo(
+      "#m-logo-tagline",
+      { opacity: 0, filter: "blur(8px)" },
+      { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" },
+      1.1,
+    );
+    tl.fromTo(
+      "#m-logo-handle",
+      { opacity: 0, filter: "blur(8px)" },
+      { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" },
+      1.3,
+    );
+    window.__timelines["m-logo"] = tl;
+  </script>
+</template>
